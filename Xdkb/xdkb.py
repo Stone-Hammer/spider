@@ -77,8 +77,8 @@ def main(type):
             if h:
                 result = parse_page_detail(h, url)
                 if result:
-                    print(result)
-                    #save_to_mongo(result, mycol)
+                    #print(result)
+                    save_to_mongo(result, mycol)
 
 if __name__ == '__main__':
     pool = Pool()
