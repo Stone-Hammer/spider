@@ -53,11 +53,12 @@ def parse_page_detail(html, url):
     soup = BeautifulSoup(html, 'lxml')
     if soup.select('.news_title'):
         title = soup.select('.news_title')[0].get_text()
+
         return {
             'keywords': soup.select('meta[name="Keywords"]')[0]['content'],
             'description': soup.select('meta[name="Description"]')[0]['content'],
             'title': title,
-            'time': soup.select('.news_about > p')[1].get_text().strip('\n\t'),
+            'time': soup.select('.news_about > p')[1].get_text().strip('\n\t')[0:16],
             'content': soup.select('.news_txt')[0].get_text(),
             'zan': soup.select('.zan')[0].get_text().strip('\n '),
             'url': url
