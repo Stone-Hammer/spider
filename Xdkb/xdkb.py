@@ -71,7 +71,6 @@ def main(type):
     for page in groups:
         html = get_page_index(page,type)
         mycol = mydb[MONGO_COL_HEAD + str(type)]
-        parse_page_index(html)
         for url in parse_page_index(html):
             h = get_page_detail(url)
             if h:
