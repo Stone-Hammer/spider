@@ -14,7 +14,7 @@ mydb = myclient[MONGO_DB]
 #mycol = mydb[MONGO_COL]
 
 def get_page_index(page):
-    url = 'http://opinion.people.com.cn/index'+ str(page) + '.html'
+    url = 'http://society.people.com.cn/index'+ str(page) + '.html'
     try:
         response= requests.get(url)
         if response.status_code == 200:
@@ -26,8 +26,9 @@ def get_page_index(page):
         return None
 
 def parse_page_index(html):
-    pattern = re.compile('<strong><a href=\'(.*?)\'', re.S)
-    items = re.findall(pattern, html)
+    #pattern = re.compile('<strong><a href=\'(.*?)\'', re.S)
+    pattern = re.compile('<h5><a href=\'(.*?)\'', re.S)
+    items = re.findall(pattern, str(html))
     return items
 
 def get_page_detail(url):
@@ -43,8 +44,8 @@ def get_page_detail(url):
 
 def parse_page_detail(html, url):
     soup = BeautifulSoup(html, 'lxml')
-    title = soup.select('.text_title > h1')[0].get_text()
-    if title:
+    if soup.select('.text_title > h1'):
+        title = soup.select('.text_title > h1')[0].get_text()
         t = soup.select('.box01')[0].get_text().strip('\n')[0:16]
         time = t[0:4]+"-"+t[5:7]+"-"+t[8:10]+" "+t[11:16]
         return {
@@ -68,12 +69,13 @@ def main(page):
     parse_page_index(html)
     mycol = mydb[MONGO_COL_HEAD]
     for item in parse_page_index(html):
-        url = 'http://opinion.people.com.cn'+str(item)
-        h = get_page_detail(url)
-        if h:
-            result = parse_page_detail(h, url)
-            if result:
-                save_to_mongo(result, mycol)
+        if str(item):
+            url = 'http://society.people.com.cn' + str(item)
+            h = get_page_detail(url)
+            if h:
+                result = parse_page_detail(h, url)
+                if result:
+                    save_to_mongo(result, mycol)
 
 if __name__ == '__main__':
     groups = [x for x in range(GROUP_START, GROUP_END+1)]
