@@ -7,7 +7,7 @@ MONGO_COL='news_culture'
 GROUP_START=0
 GROUP_END=50
 
-USR_AG_LIST = {
+USR_AG_LIST = [
     # Opera
     'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 OPR/26.0.1656.60',
     'Opera/8.0 (Windows NT 5.1; U; en)',
@@ -48,4 +48,4 @@ USR_AG_LIST = {
     'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/4.4.3.4000 Chrome/30.0.1599.101 Safari/537.36',
     # UC浏览器
     'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.122 UBrowser/4.0.3214.0 Safari/537.36',
-}
+]
